@@ -30,6 +30,7 @@ Currently includes:
 - Cd into the folder
 - Run npm install command
 - Make sure the Android SDK path is correct in the local file under StayTuneAPP\android
+- Go to \node_modules\metro-config\src\defaults\blacklist.js and change line 15 to /node_modules[/\]react[/\]dist[/\].*/,
 - Start emulator
 - Run react-native run-android command
 
@@ -160,3 +161,4 @@ For Visual Studio Code users, there is a handy extension that makes it easy to l
 ## Premium Support
 
 [Ignite CLI](https://infinite.red/ignite), [Ignite Andross](https://github.com/infinitered/ignite-andross), and [Ignite Bowser](https://github.com/infinitered/ignite-bowser), as open source projects, are free to use and always will be. [Infinite Red](https://infinite.red/) offers premium Ignite support and general mobile app design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us for more details.
+
