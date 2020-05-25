@@ -9,6 +9,8 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import com.wenkesj.voice.VoicePackage;
+import de.innfactory.apiai.RNApiAiPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
