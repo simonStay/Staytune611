@@ -54,6 +54,10 @@ pod 'Firebase/Analytics'
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'react-native-dialogflow', :path => '../node_modules/react-native-dialogflow'
+
+  pod 'react-native-voice', :path => '../node_modules/react-native-voice'
+
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       if target.name == "React"

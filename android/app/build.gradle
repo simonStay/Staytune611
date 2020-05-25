@@ -217,6 +217,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-voice')
+    implementation project(':react-native-dialogflow')
 
     implementation "com.android.support:multidex:1.0.0"
     implementation project(':react-native-firebase')
