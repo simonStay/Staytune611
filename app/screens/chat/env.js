@@ -1,0 +1,11 @@
+export const dialogflowConfig = {"type": "service_account",
+"project_id": "diagchatapp-upuhab",
+"private_key_id": "222f8a0b026d602e0dae597bfbb22b05d75f93b9",
+"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD0q6f5Ln/8yAX8\ns+tyYACfUcIr+SlYwp+cuhhxX82X2JiT41U5wSDOgHWxeu/WvjKXbeEm0yROBwi8\nKpbqYS6AXjYzgsHys9p5YU+SuFjFxcpve1gSCYd8HSh7BjmNRWZvq2NSU65WornF\nLfLEu3E0pd69CIhaqcZlErKFhsU1S3Xz2QCF6Hg0uY515FGpB0qejUyYzoF/Z0td\nw/HLWvllhVKctTx3JxXsu0YjXhhuq+ww7YEbR5azUXlzapxE5Y7yl5/YXaeTzEpz\nszirGrEpbcOWg+aA+vp3QbGrQdbRociLpt7gtny6hbzXSpsuT64aTEK3xYN8ilUZ\ngmz8zWFJAgMBAAECggEAD/Y45aE6eU/FUDieph4MPFiVnc/J+j/sMMnVOWRCIeNg\nBNniX/uw+7fWtcbq6awL2eQxuZoxtqNv1vLCWLURVw+OYqrno0FHgf6utcgwBmsC\na2Z1FuwnOhoe33PHAmfiKGvadW7/IyjHjM0UFvCRkJk3oEZzutJznnlrSxnBONo8\nRbJXa7qkN6t0CckwhoTwle3eg1lxWVv4ErsU6AbPPvIie2Anu4uFgfib2T+4IRWb\nQwvFTjLC/ri4YQD2ExjgA5e0KPUceCJ7YXMu4Vswub79nlbs/qcC4ewPCbmuWmC5\n3POkKEQq5TXW6Fo1BrtqhbTQQn/jSaozir0ToFdejwKBgQD96GUrog50SPbvqQjc\nt55axDb9dK78aXY/hf5d8J1HNr9WA53Gy2Z6R6HRLJKJUx9tLlqmYxQaoRDs8vzi\n9/GtJWe4ZS+qKIL565nbZpA/4cUFzVnDggWV5JdAwa5oyeoa3kv2ydEkZukDoby7\n16exlriCB8ptkxOol/o8ILWN0wKBgQD2r8aDbKolysnLAR2Kk2BtoV4oB2pLDDj9\nyjsEJT5pxvxExyh1PWK4Hc10flm2Rz6ETMm9Wilp9bVUvmFD0gAPZihI43X+yBE1\nthR+ncgjzdu74UMVwjbGgRDU28LoJNAA7JV9IF3lT+LFeOhpiTmW9PZXMnEdLwpJ\nLNw0fLX28wKBgQCWENpqtXcxh0ZbU15nhSbUoo+VsXcSvAoldT5nqyRpyJPBdJW1\nvtWsg9XB2UQqYbR7RSBSotBpBLUKNnr8cmqmWSs6MqO/P/5ZU8Q1hiLPftKBoWLi\nSGCgvOAgZ9h7GouAoc3n6FPx3djuSpNPuh/kuB4IzC36ISlHRbuh+fsT/QKBgCc9\nlM1pJrO2S11Agyt9ABTQW4Lwkwb3HcW5OqQRLJl07sIeECB+MErrarhCNREayiYP\ndPPq+LWDQWIGmsBIEnxgmr3leOqbdqldmmr9vE19vJtpXNuENmRjOYMyphF5caEE\nAU+TK3yDtaYF8qp/Cqspslnyiy3CQtebDDhJMkTjAoGAM6szlHkqRfXPi2PVdE3R\nrZUxeLNFq46qlvFR5xGYMDHQ1Q9vna771umYJZ2J5Rnj1RVzGqyON3u5pUs4lBMf\ns6dPAEOnHpUVsB+g8WYb65eG5gOSlj1sjSN6f+MS1wMUNMMfbj5Sg6l3S/VKCgqe\nC0LV2NbEPRMznmRizuTqOcA=\n-----END PRIVATE KEY-----\n",
+"client_email": "dialogflow-cdrsqy@diagchatapp-upuhab.iam.gserviceaccount.com",
+"client_id": "104412180603205467576",
+"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+"token_uri": "https://oauth2.googleapis.com/token",
+"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-cdrsqy%40diagchatapp-upuhab.iam.gserviceaccount.com"
+}
