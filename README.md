@@ -28,9 +28,10 @@ Currently includes:
 
 - Clone the repo
 - Cd into the folder
-- Run npm install command
+- Run npm install command and npm update
 - Make sure the Android SDK path is correct in the local file under StayTuneAPP\android
 - Go to \node_modules\metro-config\src\defaults\blacklist.js and change line 15 to /node_modules[/\]react[/\]dist[/\].*/,
+- build debug.keystore file under android/app
 - Start emulator
 - Run react-native run-android command
 
