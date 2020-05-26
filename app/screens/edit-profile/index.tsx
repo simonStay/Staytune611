@@ -255,10 +255,10 @@ class EditProfile extends Component<Props, UserInformation> {
           }
           var obj = {
             keyPrefix: "profile-pictures/",
-            bucket: "staytune-terraform",
+            bucket: "stay-tune-avatars",
             region: "us-west-2",
-            accessKey: "AKIATDR4HVPPCOUMLSY6",
-            secretKey: "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",
+            accessKey: "AKIAVPIPZG7WIVCBNST5 ",
+            secretKey: "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",
             successActionStatus: 201,
           }
           RNS3.put(file, obj).then(response => {
@@ -268,7 +268,7 @@ class EditProfile extends Component<Props, UserInformation> {
 
               //alert("profile:"+JSON.stringify(response))
               var profileSource =
-                "https://staytune-terraform.s3-us-west-2.amazonaws.com/profile-pictures/" +
+              "https://stay-tune-avatars.s3-us-west-2.amazonaws.com/profile-pictures/" +
                 key +
                 ".png"
 

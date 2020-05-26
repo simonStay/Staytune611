@@ -1,19 +1,7 @@
 import React, { Component } from "react"
-import {
-  View,
-  TouchableOpacity,
-  FlatList,
-  Modal,
-  Image,
-  ScrollView,
-  Platform,
-  Alert,
-  TextInput,
-  AsyncStorage,
-  Keyboard,
-} from "react-native"
+import { View, TouchableOpacity, FlatList, Modal, Image, ScrollView, Platform, Alert, TextInput, AsyncStorage, Keyboard } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
-import { Text } from "../../components/text"
+import { Text } from '../../components/text'
 import MapView, { Marker } from "react-native-maps"
 import { connect } from "react-redux"
 import Geolocation from "@react-native-community/geolocation"
@@ -26,20 +14,15 @@ import styles from "./styles"
 import { filters } from "../filters/filters"
 import { dimensions, color } from "../../theme"
 import { CardView } from "../../components/card-view"
-import RNGooglePlaces from "react-native-google-places"
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import BackgroundGeolocation from "@mauron85/react-native-background-geolocation"
-import {
-  sendUserLocation,
-  saveLocationLogs,
-  saveUserLocation,
-  updateUserLocation,
-} from "../../redux/actions/user"
+import RNGooglePlaces from 'react-native-google-places';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
+import { sendUserLocation, saveLocationLogs, saveUserLocation, updateUserLocation } from "../../redux/actions/user"
 import { notificationList } from "../../redux/actions/notifications"
 import moment from "moment"
 
-import firebase from "react-native-firebase"
-let Analytics = firebase.analytics()
+import firebase from 'react-native-firebase';
+let Analytics = firebase.analytics();
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -78,6 +61,8 @@ interface MapScreen {
   showModal: any
 }
 
+
+
 class MapScreen extends Component<Props, MapScreen, {}> {
   constructor(props: Props) {
     super(props)
@@ -93,20 +78,20 @@ class MapScreen extends Component<Props, MapScreen, {}> {
       selectedFilter: false,
       filteredResponse: [],
       places: [],
-      selectedType: "",
-      searchValue: "",
-      deviceId: "",
+      selectedType: '',
+      searchValue: '',
+      deviceId: '',
       userLocations: [],
-      userLat: "",
-      userLong: "",
+      userLat: '',
+      userLong: '',
       initialUserModal: false,
       showInitialModal: false,
-      showModal: true,
+      showModal: true
     }
-    Analytics.setAnalyticsCollectionEnabled(true)
-    Analytics.logEvent("Home_screen", {
-      group_id: "12345",
-      score: 1,
+    Analytics.setAnalyticsCollectionEnabled(true);
+    Analytics.logEvent('Home_screen', {
+      group_id: '12345',
+      score: 1
     })
     // Analytics.setUserProperty("Home_scree", 'Map_Screen')
   }
@@ -114,7 +99,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   async UNSAFE_componentWillMount() {
     //alert(moment().format("DD-MM-YYYYThh:mm:ss"))
 
-    Geolocation.getCurrentPosition(async position => {
+    Geolocation.getCurrentPosition(async (position) => {
       let location = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -128,14 +113,11 @@ class MapScreen extends Component<Props, MapScreen, {}> {
             longitude: position.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          },
+          }
         },
         async () => {
           console.log("From_123", this.props.from)
-          let touristLocations =
-            this.props.from === undefined
-              ? await this.props.touristLocations(this.state.region)
-              : await this.props.notificationList(this.props.userId)
+          let touristLocations = this.props.from === undefined ? await this.props.touristLocations(this.state.region) : await this.props.notificationList(this.props.userId)
           console.log("touristLocations_123", JSON.stringify(touristLocations))
           this.setState({
             touristLocations: touristLocations.payload,
@@ -155,6 +137,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         },
       })
     })
+
   }
 
   async componentWillUnmount() {
@@ -167,16 +150,16 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     console.log("componentWillUnmount_123_mapscreen")
     this.setState({
       showInitialModal: false,
-      showModal: false,
+      showModal: false
     })
   }
 
   closeModal() {
     this.setState({
       showInitialModal: false,
-      showModal: false,
+      showModal: false
     })
-    console.log("componentWillUnmount_123_mapscreen")
+    console.log('componentWillUnmount_123_mapscreen')
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -185,7 +168,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   // }
 
   componentDidMount() {
-    console.log("OS_123", Platform.OS + ",,,,," + this.props.showInitialModal)
+    console.log("OS_123", Platform.OS + ',,,,,' + this.props.showInitialModal)
     try {
       this.props.onRef(this)
       // BackgroundGeolocation.configure({
@@ -221,6 +204,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
       //   // }
       //   //postTemplate: ['@time', '@latitude', '@longitude', '@accuracy', '@bearing', '@speed']
       // });
+
     } catch (error) {
       console.log(" BackgroundGeolocation.configure:", error)
     }
@@ -230,6 +214,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     //   // handle your locations here
     //   // to perform long running operation on iOS
     //   // you need to create background task
+
 
     //   BackgroundGeolocation.startTask(async (taskKey) => {
     //     console.log('startTask_123:', taskKey);
@@ -342,7 +327,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     this.setState({
       selectedFilter: true,
       selectedType: name,
-      filteredResponse: FilteredData.payload,
+      filteredResponse: FilteredData.payload
     })
   }
 
@@ -350,73 +335,43 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     let filterList = []
     filters.map((res, i) => {
       filterList.push(
-        <TouchableOpacity
-          onPress={this.onFilter.bind(this, res.type, res.name)}
-          style={{
-            justifyContent: "space-between",
-            margin: 10,
-            backgroundColor: this.state.selectedType === res.name ? color.buttonColor : "#fff",
-            borderRadius: 6,
-          }}
-        >
-          <Text
-            style={{ color: "black", fontSize: 16, paddingVertical: 10, paddingHorizontal: 20 }}
-          >
-            {res.name}
-          </Text>
-        </TouchableOpacity>,
-      )
+        <TouchableOpacity onPress={this.onFilter.bind(this, res.type, res.name)} style={{ justifyContent: 'space-between', margin: 10, backgroundColor: this.state.selectedType === res.name ? color.buttonColor : "#fff", borderRadius: 6 }}>
+          <Text style={{ color: 'black', fontSize: 16, paddingVertical: 10, paddingHorizontal: 20 }}>{res.name}</Text>
+        </TouchableOpacity>)
     })
-    return filterList
+    return (filterList)
   }
 
   filteredType(item) {
     console.log("item", JSON.stringify(item))
     return (
       <CardView style={{ height: 150 }}>
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <View style={{ flex: 0.4 }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.4 }} >
             {item.item.photos !== undefined ? (
-              <Image
-                source={{
-                  uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.item.photos[0].photo_reference}&key=AIzaSyBI_ae3Hvrib8Bao3_WrhXLEHKuGj1J8pQ`,
-                }}
-                style={{ height: "100%", width: "100%" }}
-              />
+              <Image source={{ uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.item.photos[0].photo_reference}&key=AIzaSyBI_ae3Hvrib8Bao3_WrhXLEHKuGj1J8pQ` }} style={{ height: '100%', width: '100%' }} />
             ) : (
-              <Image
-                source={require("./../../assests/placeholder-image.png")}
-                style={{ height: "100%", width: "100%" }}
-              />
-            )}
+                <Image source={require("./../../assests/placeholder-image.png")} style={{ height: '100%', width: '100%' }} />
+              )}
           </View>
-          <View style={{ flex: 0.6 }}>
+          <View style={{ flex: 0.6 }} >
             <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  color: "#000",
-                  fontSize: 24,
-                  textAlign: "justify",
-                  marginHorizontal: 10,
-                  fontFamily: "OpenSans-Semibold",
-                }}
-                numberOfLines={2}
-              >
-                {item.item.name}
-              </Text>
-              <Text
-                style={{
-                  color: "#000",
-                  fontSize: 15,
-                  textAlign: "justify",
-                  marginVertical: 20,
-                  marginHorizontal: 10,
-                  fontFamily: "OpenSans",
-                }}
-                numberOfLines={3}
-              >
-                {item.item.vicinity}
-              </Text>
+
+              <Text style={{
+                color: '#000',
+                fontSize: 24,
+                textAlign: "justify",
+                marginHorizontal: 10,
+                fontFamily: "OpenSans-Semibold"
+              }} numberOfLines={2}>{item.item.name}</Text>
+              <Text style={{
+                color: '#000',
+                fontSize: 15,
+                textAlign: "justify",
+                marginVertical: 20,
+                marginHorizontal: 10,
+                fontFamily: "OpenSans"
+              }} numberOfLines={3}>{item.item.vicinity}</Text>
             </View>
           </View>
         </View>
@@ -425,18 +380,17 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   }
 
   getUserRange(lat1, lon1, lat2, lon2) {
-    var R = 6371 // Radius of the earth in km
-    var dLat = this.deg2rad(lat2 - lat1) // deg2rad below
-    var dLon = this.deg2rad(lon2 - lon1)
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
+    var dLon = this.deg2rad(lon2 - lon1);
     var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.deg2rad(lat1)) *
-        Math.cos(this.deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2)
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-    var d = R * c * 1000 // Distance in meters
-    return d
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2)
+      ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c * 1000; // Distance in meters
+    return d;
   }
 
   deg2rad(deg) {
@@ -455,37 +409,29 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         longitude: location.longitude,
         time: location.time,
         latitude: location.latitude,
-        accuracy: location.accuracy,
+        accuracy: location.accuracy
       })
-      await this.setState(
-        {
-          userLocations: this.state.userLocations,
-          userLat: location.latitude,
-          userLong: location.longitude,
-        },
-        async () => {
-          await console.log("saveLocationLogs_123:", JSON.stringify(this.state.userLocations))
-          await this.props.saveLocationLogs(this.state.userLocations)
-        },
-      )
-      let playerId = await AsyncStorage.getItem("@deviceId")
+      await this.setState({
+        userLocations: this.state.userLocations,
+        userLat: location.latitude,
+        userLong: location.longitude
+      }, async () => {
+        await console.log("saveLocationLogs_123:", JSON.stringify(this.state.userLocations))
+        await this.props.saveLocationLogs(this.state.userLocations)
+      })
+      let playerId = await AsyncStorage.getItem('@deviceId')
 
       let locationInfo = {
-        userId:
-          (await this.props.user.login) !== undefined
-            ? this.props.user.login.id
-            : this.props.user.userProfileInfo.data.id,
+        userId: await this.props.user.login !== undefined ? this.props.user.login.id : this.props.user.userProfileInfo.data.id,
         lat: await location.latitude,
         long: await location.longitude,
-        date: moment().format("DD-MM-YYYYThh:mm:ss"),
+        date: moment().format("DD-MM-YYYYThh:mm:ss")
       }
 
       console.log("locationInfo_appcontainer_123", JSON.stringify(locationInfo))
       if (this.props.user.userLocationLogs.length != 0) {
-        let userInitialLocation = this.props.user.userLocationLogs[0]
-        let userFinalLocation = this.props.user.userLocationLogs[
-          this.props.user.userLocationLogs.length - 1
-        ]
+        let userInitialLocation = this.props.user.userLocationLogs[0];
+        let userFinalLocation = this.props.user.userLocationLogs[this.props.user.userLocationLogs.length - 1];
 
         let Lat1 = userInitialLocation.latitude
         let Long1 = userInitialLocation.longitude
@@ -507,6 +453,8 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           }
         }
       }
+
+
     } catch (error) {
       console.log("sendUserLocation_API_123:", error)
     }
@@ -537,14 +485,14 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   onTouchStart() {
     Keyboard.dismiss()
     this.props.navigation.push("MainScreen", {
-      navigateTo: "CHAT",
+      navigateTo: "CHAT"
     })
   }
 
   placesListView(item) {
     return (
-      <View style={{ paddingVertical: 10, borderBottomWidth: 2, borderBottomColor: "#d3d3d3" }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
+      <View style={{ paddingVertical: 10, borderBottomWidth: 2, borderBottomColor: '#d3d3d3' }}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text style={{ marginLeft: 20 }}>{item.item.primaryText}</Text>
         </View>
       </View>
@@ -558,7 +506,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   initialUser() {
     if (this.state.showModal === true) {
       this.setState({
-        showInitialModal: true,
+        showInitialModal: true
       })
     }
   }
@@ -566,32 +514,21 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   skipModal() {
     this.setState({
       showInitialModal: false,
-      showModal: false,
+      showModal: false
     })
   }
 
   render() {
     console.log("start_plan", this.props.startPlan)
     if (this.props.travel.savedLocations !== undefined) {
-      if (
-        this.props.travel.savedLocations.length === 0 &&
-        this.props.travel.updatetravelPreferenceInfo === undefined &&
-        this.state.showModal === true
-      ) {
+      if (this.props.travel.savedLocations.length === 0 && this.props.travel.updatetravelPreferenceInfo === undefined && this.state.showModal === true) {
         let self = this
-        setTimeout(function() {
-          self.initialUser()
-        }, 500)
+        setTimeout(function () { self.initialUser() }, 500);
       }
     } else if (this.props.user.register !== undefined) {
-      if (
-        this.props.user.register.message === "User has been registered successfully " &&
-        this.props.travel.updatetravelPreferenceInfo === undefined
-      ) {
+      if (this.props.user.register.message === "User has been registered successfully " && this.props.travel.updatetravelPreferenceInfo === undefined) {
         let self = this
-        setTimeout(function() {
-          self.initialUser()
-        }, 700)
+        setTimeout(function () { self.initialUser() }, 700);
       }
     }
     return (
@@ -606,168 +543,118 @@ class MapScreen extends Component<Props, MapScreen, {}> {
             showsUserLocation={true}
             initialRegion={this.state.region}
           >
-            {this.state.touristLocations != undefined
-              ? this.state.touristLocations.length > 0
-                ? this.state.touristLocations.map(location => {
-                    // console.log("Location_123", JSON.stringify(location))
-                    return (
-                      <MapView.Marker
-                        coordinate={{
-                          latitude:
-                            location.geometry != undefined
-                              ? parseFloat(location.geometry.location.lat)
-                              : location.lat,
-                          longitude:
-                            location.geometry != undefined
-                              ? parseFloat(location.geometry.location.lng)
-                              : location.long,
-                        }}
-                        image={location.icon}
-                        title={location.name}
-                      />
-                    )
-                  })
-                : null
-              : null}
+            {this.state.touristLocations != undefined ? this.state.touristLocations.length > 0
+              ? this.state.touristLocations.map(location => {
+                // console.log("Location_123", JSON.stringify(location))
+                return (
+                  <MapView.Marker
+                    coordinate={{
+                      latitude: location.geometry != undefined ? parseFloat(location.geometry.location.lat) : location.lat,
+                      longitude: location.geometry != undefined ? parseFloat(location.geometry.location.lng) : location.long,
+                    }}
+                    image={location.icon}
+                    title={location.name}
+                  />
+                )
+              })
+              : null : null}
           </MapView>
         ) : null}
-        <SearchBar
-          SearchValue={this.state.searchValue}
-          onSearchValueChange={this.onSearchValueChange.bind(this)}
-          places={this.state.places}
-          onTouchStart={this.onTouchStart.bind(this)}
-        />
-        <TouchableOpacity style={styles.filter} onPress={this.handlefilter.bind(this)}>
+        <SearchBar SearchValue={this.state.searchValue} onSearchValueChange={this.onSearchValueChange.bind(this)} places={this.state.places} onTouchStart={this.onTouchStart.bind(this)} />
+        <TouchableOpacity
+          style={styles.filter}
+          onPress={this.handlefilter.bind(this)}
+        >
           <GoldBarView style={styles.goldBar}>
             <Icon icon={"filter"} style={styles.filterIcon} />
           </GoldBarView>
         </TouchableOpacity>
-        {this.props.travel.savedLocations === undefined ||
-        this.props.travel.savedLocations.length === 0 ||
-        this.props.startPlan ? (
-          <TouchableOpacity
-            style={this.state.showInitialModal ? styles.disableStartPlan : styles.startPlan}
-            disabled={this.state.showInitialModal}
-            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
-          >
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <View style={styles.left}>
-                <Text style={styles.buttonText}>Start your plan</Text>
-              </View>
-              <View style={styles.right}>
-                <Icon icon={"back"} style={styles.icon} />
-              </View>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-        {/* {this.props.travel.savedLocations !== undefined ?
-          this.props.travel.savedLocations.length === 0 ? this.initialUser() : null : null} */}
-        {this.state.showInitialModal ? (
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.showInitialModal}
-            onRequestClose={() => {
-              // alert('Modal has been closed.');
-            }}
-          >
-            {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> */}
-            <View style={styles.initialUserModal}>
-              <View style={styles.modalHeader}>
-                <View style={styles.headerAlign}>
-                  <Text style={styles.headerText}>
-                    Welcome{" "}
-                    {this.props.user.login != undefined
-                      ? this.props.user.login.firstname.charAt(0).toUpperCase() +
-                        this.props.user.login.firstname.slice(1)
-                      : this.props.user.userProfileInfo != undefined
-                      ? this.props.user.userProfileInfo.data.firstname.charAt(0).toUpperCase() +
-                        this.props.user.userProfileInfo.data.firstname.slice(1)
-                      : null}
-                    ! For your personalized recommendations, please click on "start your plan" to
-                    set travel preferences
-                  </Text>
+        {(this.props.travel.savedLocations === undefined ||
+          this.props.travel.savedLocations.length === 0) || this.props.startPlan ? (
+            <TouchableOpacity
+              style={this.state.showInitialModal ? styles.disableStartPlan : styles.startPlan}
+              disabled={this.state.showInitialModal}
+              onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+            >
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={styles.left}>
+                  <Text style={styles.buttonText}>Start your plan</Text>
+                </View>
+                <View style={styles.right}>
+                  <Icon icon={"back"} style={styles.icon} />
                 </View>
               </View>
-              <View style={styles.modalFooter}>
-                <TouchableOpacity onPress={this.skipModal.bind(this)} style={styles.skipButton}>
-                  <View style={styles.headerAlign}>
-                    <Text style={styles.headerText}>SKIP</Text>
-                  </View>
-                </TouchableOpacity>
+            </TouchableOpacity>
+          ) : null}
+        {/* {this.props.travel.savedLocations !== undefined ?
+          this.props.travel.savedLocations.length === 0 ? this.initialUser() : null : null} */}
+        {this.state.showInitialModal ? (<Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.showInitialModal}
+          onRequestClose={() => {
+            // alert('Modal has been closed.');
+          }}>
+          {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> */}
+          <View style={styles.initialUserModal}>
+            <View style={styles.modalHeader}>
+              <View style={styles.headerAlign}>
+                <Text style={styles.headerText}>Welcome {this.props.user.login != undefined ? this.props.user.login.firstname.charAt(0).toUpperCase() + this.props.user.login.firstname.slice(1) : this.props.user.userProfileInfo != undefined ? this.props.user.userProfileInfo.data.firstname.charAt(0).toUpperCase() + this.props.user.userProfileInfo.data.firstname.slice(1) : null}! For your personalized recommendations, please click on "start your plan" to set travel preferences</Text>
               </View>
             </View>
-            <View style={[styles.triangle, styles.triangleDown]} />
-            {/* </View> */}
-          </Modal>
-        ) : null}
+            <View style={styles.modalFooter}>
+              <TouchableOpacity onPress={this.skipModal.bind(this)} style={styles.skipButton}>
+                <View style={styles.headerAlign}>
+                  <Text style={styles.headerText}>SKIP</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={[styles.triangle, styles.triangleDown]} />
+          {/* </View> */}
+        </Modal>) : null}
         <Modal
           animationType="slide"
           transparent={true}
           visible={this.props.modalVisible}
           onRequestClose={() => {
             // alert('Modal has been closed.');
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "column",
-              backgroundColor: "white",
-              opacity: 0.9,
-              justifyContent: "center",
-              aligItems: "center",
-            }}
-          >
+          }}>
+          <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white', opacity: 0.9, justifyContent: 'center', aligItems: 'center' }}>
             <View style={{ flex: 0.1 }}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({
-                    selectedFilter: false,
-                    selectedType: "",
-                    touristLocations: this.props.places.touristLocations,
-                  })
-                  this.props.onRight()
-                  this.handlefilter.bind(this)
-                }}
-                style={styles.topIcon}
-              >
+              <TouchableOpacity onPress={() => {
+                this.setState({ selectedFilter: false, selectedType: '', touristLocations: this.props.places.touristLocations })
+                this.props.onRight()
+                this.handlefilter.bind(this)
+              }} style={styles.topIcon}>
                 <Icon icon={"cross"} style={{ marginLeft: 30 }} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 0.9, flexDirection: "row", flexWrap: "wrap" }}>
+            <View style={{ flex: 0.9, flexDirection: 'row', flexWrap: "wrap" }}>
               <View style={{ flex: 1 }}>
-                <View style={{ height: 80, backgroundColor: "#d3d3d3" }}>
-                  <View style={{ flex: 1, justifyContent: "center" }}>
-                    <ScrollView
-                      style={{ flex: 1, marginTop: 10 }}
-                      horizontal={true}
-                      contentContainerStyle={{ flexDirection: "row", flexWrap: "wrap" }}
-                    >
+                <View style={{ height: 80, backgroundColor: '#d3d3d3' }} >
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <ScrollView style={{ flex: 1, marginTop: 10 }} horizontal={true} contentContainerStyle={{ flexDirection: 'row', flexWrap: "wrap" }}>
                       {this.renderFilters()}
                     </ScrollView>
                   </View>
                 </View>
-                <View style={styles.list}>
+                <View style={styles.list} >
                   <View style={{ flex: 1 }}>
                     {this.state.filteredResponse.length !== 0 ? (
                       <FlatList
                         data={this.state.filteredResponse}
-                        renderItem={item => this.filteredType(item)}
+                        renderItem={(item) => this.filteredType(item)}
                       />
                     ) : (
-                      <Text
-                        style={{
-                          color: "#fff",
+                        <Text style={{
+                          color: '#fff',
                           fontSize: 20,
                           textAlign: "center",
-                          justifyContent: "center",
-                          fontFamily: "OpenSans",
-                        }}
-                      >
-                        No {this.state.selectedType.toUpperCase()} found near to your location
-                      </Text>
-                    )}
+                          justifyContent: 'center',
+                          fontFamily: "OpenSans"
+                        }}>No {this.state.selectedType.toUpperCase()} found near to your location</Text>
+                      )}
                   </View>
                 </View>
               </View>
@@ -785,13 +672,5 @@ export default connect(
     travel: state.travel,
     places: state.places,
   }),
-  {
-    touristLocations,
-    getFilterByType,
-    sendUserLocation,
-    saveUserLocation,
-    saveLocationLogs,
-    updateUserLocation,
-    notificationList,
-  },
+  { touristLocations, getFilterByType, sendUserLocation, saveUserLocation, saveLocationLogs, updateUserLocation, notificationList },
 )(MapScreen)
