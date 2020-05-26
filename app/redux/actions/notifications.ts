@@ -45,7 +45,7 @@ export function notificationList(userId) {
       type: LOADER_NOTIFICATION,
       payload: true,
     })
-    const res = await fetch("https://api.staytune.co/notificationslist", {
+    const res = await fetch(STAYTUNELIVEURL + "/notificationslist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
