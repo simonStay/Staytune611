@@ -210,7 +210,7 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.11.0):
     - React
-  - RNDeviceInfo (5.6.0):
+  - RNDeviceInfo (5.6.1):
     - React
   - RNFirebase (5.6.0):
     - Firebase/Core
@@ -457,7 +457,7 @@ SPEC CHECKSUMS:
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: db711e29e5e0500d9bd21aa0c2e397efa45302b1
-  RNDeviceInfo: 23eef94a8911a03ecf5d6c79df71db34091c8f40
+  RNDeviceInfo: ab2ab4ca9e7f2bc4f35d62ab6ce2b66f2cbf1e7a
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNKeychain: c658833a9cb2cbcba6423bdd6e16cce59e27da0e
@@ -467,6 +467,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: f588d28469fde0ca918c215b889d72d1ba87147d
+PODFILE CHECKSUM: c427954a3d83e3ba3a5b9cd8e789d388cb4810be
 
 COCOAPODS: 1.9.1
